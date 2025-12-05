@@ -1,0 +1,101 @@
+<?php
+// Tampilkan error saat dev
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Mulai session sekali saja
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Autoloader PSR-4 sederhana: App\* => /src/*
+spl_autoload_register(function ($class) {
+    $prefix  = 'App\\';
+    $baseDir = __DIR__ . '/../src/';
+
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+    $relative = substr($class, $len);
+    $file = $baseDir . str_replace('\\', '/', $relative) . '.php';
+    if (is_file($file)) {
+        require $file;
+    }
+});
+
+// Routing
+$route = $_GET['r'] ?? 'login';
+
+// Proteksi: semua route selain login butuh auth
+// Proteksi: semua route selain login butuh auth
+// Proteksi: halaman yang butuh login
+$publicRoutes = ['login', 'category', 'product'];
+
+use App\Controllers\AuthController;
+use App\Controllers\CategoryController;
+use App\Controllers\ProductController;
+use App\Controllers\ReportController;
+
+if (!in_array($route, $publicRoutes) && empty($_SESSION['auth'])) {
+    header('Location: /?r=login');
+    exit;
+}
+
+
+switch ($route) {
+    case 'login':
+        $c = new AuthController();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $c->login();       // proses POST
+        } else {
+            $c->showLogin();   // tampilkan form
+        }
+        break;
+
+    case 'logout':
+        (new AuthController())->logout();
+        break;
+
+    case 'category':
+        (new CategoryController())->index();
+        break;
+
+    case 'catCreate':
+        (new CategoryController())->create();
+        break;
+
+    case 'catUpdate':
+        (new CategoryController())->update();
+        break;
+
+    case 'catDelete':
+        (new CategoryController())->delete();
+        break;
+
+    case 'product':
+    (new ProductController())->index();
+    break;
+
+case 'prodSave':
+    (new ProductController())->save();
+    break;
+
+case 'prodUpdate':
+    (new ProductController())->update();
+    break;
+
+case 'prodDelete':
+    (new ProductController())->delete();
+    break;
+
+
+    case 'print':
+        // disarankan ganti nama method, mis. printReport()
+        (new ReportController())->printReport();
+        break;
+
+    default:
+        http_response_code(404);
+        echo "Page not found!";
+}
