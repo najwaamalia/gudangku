@@ -115,5 +115,31 @@ public static function searchGlobal(string $keyword): array {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+    
+    public static function getByCategoryId($categoryId) {
+        $pdo = \App\Core\Database::conn();
+        
+        $stmt = $pdo->prepare("
+            SELECT id, product_name, code, stock, description, category_id 
+            FROM product 
+            WHERE category_id = ? 
+            ORDER BY product_name ASC
+        ");
+        
+        $stmt->execute([$categoryId]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
+    // Method untuk mendapatkan semua produk dari semua kategori
+    public static function all() {
+        $pdo = \App\Core\Database::conn();
+        
+        $stmt = $pdo->query("
+            SELECT id, product_name, code, stock, description, category_id 
+            FROM product 
+            ORDER BY category_id, product_name ASC
+        ");
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 // Tampilkan error saat dev
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -27,15 +30,13 @@ spl_autoload_register(function ($class) {
 // Routing
 $route = $_GET['r'] ?? 'login';
 
-// Proteksi: semua route selain login butuh auth
-// Proteksi: semua route selain login butuh auth
 // Proteksi: halaman yang butuh login
 $publicRoutes = ['login', 'category', 'product'];
 
 use App\Controllers\AuthController;
 use App\Controllers\CategoryController;
 use App\Controllers\ProductController;
-use App\Controllers\ReportController;
+use App\Controllers\PrintController;  // TAMBAHKAN INI
 
 if (!in_array($route, $publicRoutes) && empty($_SESSION['auth'])) {
     header('Location: /?r=login');
@@ -74,25 +75,24 @@ switch ($route) {
         break;
 
     case 'product':
-    (new ProductController())->index();
-    break;
+        (new ProductController())->index();
+        break;
 
-case 'prodSave':
-    (new ProductController())->save();
-    break;
+    case 'prodSave':
+        (new ProductController())->save();
+        break;
 
-case 'prodUpdate':
-    (new ProductController())->update();
-    break;
+    case 'prodUpdate':
+        (new ProductController())->update();
+        break;
 
-case 'prodDelete':
-    (new ProductController())->delete();
-    break;
+    case 'prodDelete':
+        (new ProductController())->delete();
+        break;
 
-
+    // TAMBAHKAN CASE PRINT INI
     case 'print':
-        // disarankan ganti nama method, mis. printReport()
-        (new ReportController())->printReport();
+        PrintController::printProductsByCategory();
         break;
 
     default:
