@@ -14,6 +14,18 @@
             <img src="/assets/icon.png" alt="GudangKu Icon" class="logo-icon">
             <h1>GudangKu - Inventory Management System</h1>
         </div>
+        <!-- Logout Button di Header -->
+        <div class="header-actions">
+            <?php if (isset($_SESSION['auth'])): ?>
+                <span class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <?php echo htmlspecialchars($_SESSION['auth']['username'] ?? 'User'); ?>
+                </span>
+                <a href="/?r=logout" class="logout-btn" onclick="return confirm('Are you sure you want to logout?')">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            <?php endif; ?>
+        </div>
     </header>
 
     <main>

@@ -1,359 +1,610 @@
-/* General Page Styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+/* Reset & Body */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
 }
 
 /* Header Styling */
 header {
-    background-color: #ffffff;
-    color: #000813;
-    padding: 15px 30px;
-    margin-bottom: 30px;
-    box-shadow: 8px 4px 8px rgba(0.2, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-bottom: 2px solid #e5e5e5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 header .logo {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
-header .logo h1 {
+
+header .logo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+header h1 {
     font-size: 20px;
+    color: #333;
     margin: 0;
-    display: inline-block;
-    font-weight: bold;
 }
-header .logo .logo-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 15px;
-    object-fit: cover;
+
+/* Header Actions - User Info & Logout */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+.user-info i {
+    font-size: 18px;
+    color: #666;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #ef4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.logout-btn i {
+    font-size: 14px;
 }
 
 /* Dashboard Container */
 .dashboard-container {
-    max-width: 2400px; /* Maksimum lebar container */
+    max-width: 1200px;
     margin: 30px auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 8px 4px 8px rgba(0.2, 0, 0, 0.2);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column; /* Mengatur elemen dalam kolom */
-    gap: 20px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Title Styling */
-h2 {
+.dashboard-container h2 {
     font-size: 24px;
-    margin-bottom: 20px;
     color: #333;
+    margin-bottom: 20px;
 }
 
 /* Action Buttons */
 .actions {
-    margin-top: 20px;
     display: flex;
-    justify-content: flex-start;
-    gap: 15px;
-}
-
-.actions .btn {
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Menambahkan ruang antara ikon dan teks */
-}
-
-.actions .add-category {
-    background-color: #1a73e8;
-    color: white;
-}
-
-.actions .add-category:hover {
-    background-color: #1668b3;
-}
-
-.actions .print-category {
-    background-color: #00b618;
-    color: white;
-}
-
-.actions .print-category:hover {
-    background-color: #004609;
-}
-
-.actions i {
-    font-size: 18px; /* Menyesuaikan ukuran ikon */
-}
-
-/* Search Form Styling */
-.search-form {
-    position: relative; /* Membuat tombol absolute dalam posisi relatif form */
-    width: 100%;
-    max-width: 2400px;  /* Membatasi lebar maksimum form */
+    gap: 12px;
     margin-bottom: 20px;
 }
 
-.search-form input {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100%;  /* Menggunakan lebar penuh pada perangkat kecil */
-    padding-right: 1px;  /* Memberikan ruang di sisi kanan untuk tombol */
+/* Search Form */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.search-form button {
-    position: absolute;
-    top: 50%;
-    right: 1px;
-    transform: translateY(-50%);
-    padding: 5px 13px;
-    background-color: #00b9b0;
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.search-form input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.search-btn {
+    padding: 12px 24px;
+    background-color: #4CAF50;
     color: white;
-    font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
-.search-form button:hover {
+.search-btn:hover {
     background-color: #45a049;
 }
 
-/* Category List */
+/* Category List Styling */
 .category-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0;
 }
 
 .category-item {
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff;
-    padding: 12px 20px;  /* Padding untuk memberi ruang di dalam kotak */
-    border-radius: 12px;  /* Membuat sudut kotak melengkung */
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  /* Memberi efek bayangan */
     align-items: center;
-    transition: background-color 0.3s ease; /* Animasi ketika hover */
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .category-item:hover {
-    background-color: #8a8a8a; /* Mengubah background ketika hover */
+    background-color: #e8f4f8;
+    border-color: #4CAF50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Menata teks nama kategori */
-.category-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Tombol Edit dan Delete */
-.edit-category, .delete-category {
+/* Category Link Styling */
+.category-link {
+    flex: 1;
     text-decoration: none;
-    color: #007bff;
-    font-size: 14px;
-    margin-left: 10px;
-    padding: 6px 10px;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.category-link:hover .category-name {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.category-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Category Actions */
+.category-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.edit-category {
+    color: #2196F3;
+    text-decoration: none;
+    padding: 8px 12px;
     border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.edit-category:hover, .delete-category:hover {
-    color: #0056b3;
+.edit-category:hover {
+    background-color: #2196F3;
+    color: white;
 }
 
-.edit-category i, .delete-category i {
-    margin-right: 5px;
+.edit-category i {
+    font-size: 14px;
 }
 
-/* Modal Styling untuk Add Category */
+/* Modal Styling - Modern Centered Design */
 .modal {
-    display: none; /* Modal disembunyikan secara default */
+    display: none;
     position: fixed;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);  /* Latar belakang gelap */
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex !important;
     align-items: center;
-    z-index: 1000;  /* Modal muncul di atas elemen lain */
+    justify-content: center;
+}
+
+.modal[style*="display: block"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Tombol untuk menutup modal */
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Modal Header */
+.modal-content h3 {
+    margin: 0;
+    padding: 24px 24px 20px 24px;
+    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Close Button - Modern X */
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    right: 20px;
+    top: 20px;
+    color: #666;
     font-size: 24px;
+    font-weight: 300;
     cursor: pointer;
-}
-
-/* Styling untuk form di modal */
-.modal form {
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
 }
 
-.modal form label {
-    font-size: 16px;
-    font-weight: bold;
+.close-btn:hover {
+    background-color: #f5f5f5;
     color: #333;
 }
 
-.modal form input[type="text"] {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+/* Form Styling */
+.modal-content form {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.modal form button {
+.modal-content label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.modal-content input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.modal-content input[type="text"]::placeholder {
+    color: #9ca3af;
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Button Container - Flex Row untuk kanan-kiri */
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Button Styling - Modern Design */
+.update-btn,
+.cancel-btn,
+.add-btn {
+    flex: 1;
     padding: 12px 20px;
-    font-size: 16px;
-    background-color: #1a73e8;
-    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: inherit;
 }
 
-.modal form button:hover {
-    background-color: #1668b3;
-}
-
-/* Button Cancel untuk menutup modal */
 .cancel-btn {
-    background-color: #f44336;  /* Merah */
+    background-color: transparent;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    order: 1;
 }
 
 .cancel-btn:hover {
-    background-color: #d32f2f;  /* Merah lebih gelap */
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
 }
 
-/* Notifikasi Error */
+.update-btn,
+.add-btn {
+    background-color: #2563eb;
+    color: white;
+    order: 2;
+}
+
+.update-btn:hover,
+.add-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.update-btn:active,
+.add-btn:active {
+    transform: translateY(0);
+}
+
+/* Notifications - Modern Alert Style */
+.success-notification,
 .error-notification {
-    display: none;
-    background-color: #f44336;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-.error-notification.show {
-    display: block;
-    transition: opacity 0.3s ease;
-}
-
-/* Modal Styling untuk Update Category */
-#editCategoryModal {
-    display: none; /* Modal disembunyikan secara default */
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);  /* Latar belakang gelap */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;  /* Modal muncul di atas elemen lain */
-}
-
-#editCategoryModal .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Tombol untuk menutup modal */
-#editCategoryModal .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Styling untuk form di modal update kategori */
-#editCategoryModal form {
+    top: 20px;
+    right: -500px;
+    min-width: 320px;
+    max-width: 450px;
+    padding: 16px 50px 16px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 2000;
+    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 12px;
 }
 
-#editCategoryModal form label {
-    font-size: 16px;
+.success-notification {
+    background-color: #10b981;
+}
+
+.error-notification {
+    background-color: #ef4444;
+}
+
+.success-notification.show,
+.error-notification.show {
+    right: 20px;
+}
+
+/* Icon untuk notifikasi */
+.success-notification::before {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     font-weight: bold;
-    color: #333;
+    font-size: 14px;
+    flex-shrink: 0;
 }
 
-#editCategoryModal form input[type="text"] {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.error-notification::before {
+    content: "⚠";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
 }
 
-#editCategoryModal form button {
-    padding: 12px 20px;
-    font-size: 16px;
-    background-color: #1a73e8;
-    color: white;
+/* Close button untuk notifikasi */
+.notification-close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#editCategoryModal form button:hover {
-    background-color: #1668b3;
-}
-
-/* Button Cancel untuk menutup modal */
-#editCategoryModal .cancel-btn {
-    background-color: #f44336;  /* Merah */
-}
-
-#editCategoryModal .cancel-btn:hover {
-    background-color: #d32f2f;  /* Merah lebih gelap */
-}
-
-/* Notifikasi Error pada modal update */
-#editCategoryModal .error-notification {
-    display: none;
-    background-color: #f44336;
     color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-#editCategoryModal .error-notification.show {
-    display: block;
-    transition: opacity 0.3s ease;
+.notification-close:hover {
+    opacity: 1;
+}
+
+/* Button Styling - General */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-category {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.add-category:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.print-category {
+    background-color: #2196F3;
+    color: white;
+}
+
+.print-category:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions a {
+        width: 100%;
+    }
+
+    .actions button {
+        width: 100%;
+    }
+
+    .category-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .category-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+        padding: 20px 20px 16px 20px;
+    }
+
+    .modal-content form {
+        padding: 20px;
+    }
+
+    .success-notification,
+    .error-notification {
+        min-width: 280px;
+        right: -350px;
+    }
+
+    .success-notification.show,
+    .error-notification.show {
+        right: 10px;
+    }
+}
+
+/* Animation for better UX */
+@media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal-content,
+    .success-notification,
+    .error-notification {
+        animation: none;
+    }
 }
