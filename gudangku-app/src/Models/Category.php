@@ -1,37 +1,36 @@
 <?php
 namespace App\Models;
-
 use App\Core\Database;
 use PDO;
 
-class Category
-{
+class Category {
+
     // Method untuk mengambil semua kategori
-    public static function all() {
-        $pdo = Database::conn();
-        
-        // Gunakan nama tabel yang benar: 'category' 
-        $stmt = $pdo->query("
-            SELECT id, name_category 
-            FROM category 
-            ORDER BY name_category ASC
-        ");
-        
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public static function all(): array {
+        return Database::conn()->query("SELECT * FROM category ORDER BY name_category")->fetchAll();
     }
 
-    // Method untuk mencari kategori berdasarkan nama
+    // Method untuk mencari kategori berdasarkan ID
+    public static function findById(int $id): ?array {
+        $stmt = Database::conn()->prepare("SELECT * FROM category WHERE id = ?");
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    // Method untuk mencari kategori berdasarkan nama (SEARCH)
     public static function search(string $searchQuery): array {
         // Jika tidak ada pencarian, tampilkan semua kategori
         if (empty($searchQuery)) {
             return self::all();
         }
 
-        $stmt = Database::conn()->prepare("SELECT * FROM category WHERE name_category LIKE ?");
+        // Query pencarian dengan LIKE - case insensitive
+        $stmt = Database::conn()->prepare("SELECT * FROM category 
+                                          WHERE LOWER(name_category) LIKE LOWER(?) 
+                                          ORDER BY name_category");
         $stmt->execute(["%$searchQuery%"]);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Method untuk menambahkan kategori baru
@@ -46,17 +45,16 @@ class Category
         return $stmt->execute([$name, $id]);
     }
 
-    // Method untuk memeriksa apakah kategori sudah ada berdasarkan nama
-    public static function existsByName(string $name): bool {
-        $stmt = Database::conn()->prepare("SELECT COUNT(*) FROM category WHERE name_category = ?");
-        $stmt->execute([$name]);
-        return $stmt->fetchColumn() > 0;
+    // Method untuk menghapus kategori
+    public static function delete(int $id): bool {
+        $stmt = Database::conn()->prepare("DELETE FROM category WHERE id = ?");
+        return $stmt->execute([$id]);
     }
 
-    // Method untuk mencari kategori berdasarkan ID
-    public static function find(int $id): array|null {
-        $stmt = Database::conn()->prepare("SELECT * FROM category WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    // Method untuk memeriksa apakah kategori sudah ada berdasarkan nama
+    public static function existsByName(string $name): bool {
+        $stmt = Database::conn()->prepare("SELECT COUNT(*) FROM category WHERE LOWER(name_category) = LOWER(?)");
+        $stmt->execute([$name]);
+        return $stmt->fetchColumn() > 0;
     }
 }

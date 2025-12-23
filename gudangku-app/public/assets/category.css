@@ -106,11 +106,50 @@ header h1 {
     margin-bottom: 20px;
 }
 
+/* Search Info */
+.search-info {
+    background-color: #e8f4f8;
+    border-left: 4px solid #2196F3;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.search-info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.search-info strong {
+    color: #2196F3;
+}
+
+.clear-search {
+    color: #ef4444;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.clear-search:hover {
+    background-color: #fee;
+}
+
+.result-count {
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+}
+
 /* Search Form */
 .search-form {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .search-form input[type="text"] {
@@ -144,6 +183,64 @@ header h1 {
 
 .search-btn:hover {
     background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-clear {
+    padding: 12px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-clear:hover {
+    background-color: #da190b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.no-results i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.no-results h3 {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    font-size: 14px;
+    color: #999;
+}
+
+.no-results a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.no-results a:hover {
+    text-decoration: underline;
 }
 
 /* Category List Styling */
@@ -409,7 +506,8 @@ header h1 {
 
 /* Notifications - Modern Alert Style */
 .success-notification,
-.error-notification {
+.error-notification,
+.info-notification {
     position: fixed;
     top: 20px;
     right: -500px;
@@ -436,8 +534,13 @@ header h1 {
     background-color: #ef4444;
 }
 
+.info-notification {
+    background-color: #3b82f6;
+}
+
 .success-notification.show,
-.error-notification.show {
+.error-notification.show,
+.info-notification.show {
     right: 20px;
 }
 
@@ -458,6 +561,20 @@ header h1 {
 
 .error-notification::before {
     content: "⚠";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.info-notification::before {
+    content: "ℹ";
     display: flex;
     align-items: center;
     justify-content: center;

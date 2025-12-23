@@ -27,7 +27,7 @@ class ProductController {
 } else {
     $products = Product::allByCategory($categoryId);
 }
-        $category = Category::find($categoryId);
+        $category = Category::findById((int)$categoryId);
 
         require __DIR__ . '/../Views/product/index.php';
     }
