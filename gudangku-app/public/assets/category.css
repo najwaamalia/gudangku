@@ -16,7 +16,15 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        #8DC4D5,
+        #87BDCD,
+        #4A676F
+    );
+
+    
     border-bottom: 2px solid #e5e5e5;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -30,12 +38,20 @@ header .logo {
 header .logo-icon {
     width: 40px;
     height: 40px;
+
+    background-color: #ffffff;   /* kotak putih */
+    padding: 6px;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 
 header h1 {
     font-size: 20px;
-    color: #333;
+    color: #FFFF;
     margin: 0;
+    font-weight: 600;
 }
 
 /* Header Actions - User Info & Logout */
@@ -50,13 +66,13 @@ header h1 {
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    color: #555;
+    color: #FFFF;
     font-weight: 500;
 }
 
 .user-info i {
     font-size: 18px;
-    color: #666;
+    color: #FFFF;
 }
 
 .logout-btn {
