@@ -16,12 +16,55 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
         *{box-sizing:border-box}
         body{
-            margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            
+            margin:0; 
+            font-family:'Arial', sans-serif;
             background:var(--bg); color:#111827;
         }
-        header{background:#0f172a;color:white;padding:16px 24px;display:flex;align-items:center;gap:12px}
-        header .logo-icon{width:36px;height:36px;border-radius:6px;background:white;padding:6px;object-fit:cover}
-        header h1{font-size:18px;margin:0}
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 40px;
+
+            background: linear-gradient(
+            135deg,
+            #8DC4D5,
+            #87BDCD,
+            #4A676F
+        );
+
+    
+            border-bottom: 2px solid #e5e5e5;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header .logo-icon {
+            width: 40px;
+            height: 40px;
+
+            background-color: #ffffff;   /* kotak putih */
+            padding: 6px;
+            border-radius: 8px;
+
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+
+        header h1 {
+            font-size: 20px;
+            color: #FFFF;
+            margin: 0;
+            font-weight: 600;
+        }
+
         main{padding:20px; max-width:1100px;margin:18px auto}
         .card{background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:0 6px 18px rgba(15,23,42,0.06);}
         .topbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
@@ -61,9 +104,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 </head>
 <body>
     <header>
-        <img class="logo-icon" src="/assets/icon.png" alt="logo" />
-        <h1>GudangKu — Produk</h1>
-    </header>
+        <div class="header-container">
+            <div class="logo">
+                <img class="logo-icon" src="/assets/icon.png" alt="logo" />
+                <h1>GudangKu - Inventory Management System</h1>
+        </div>
+</header>
+
 
     <main>
         <div class="card">
