@@ -57,4 +57,11 @@ class Category {
         $stmt->execute([$name]);
         return $stmt->fetchColumn() > 0;
     }
+
+    public static function findByName(string $name): ?array {
+    $stmt = Database::conn()->prepare("SELECT * FROM category WHERE LOWER(name_category) = LOWER(?)");
+    $stmt->execute([$name]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result ?: null;
+}
 }

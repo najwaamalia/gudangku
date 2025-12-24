@@ -119,6 +119,14 @@ class CategoryController {
             exit;
         }
 
+        // PERBAIKAN: Cek apakah nama kategori sudah digunakan oleh kategori lain
+        $existingCategory = Category::findByName($name);
+        if ($existingCategory && $existingCategory['id'] != $id) {
+            $_SESSION['error'] = "The category name '" . htmlspecialchars($name) . "' already exists!";
+            header('Location: /?r=category');
+            exit;
+        }
+
         // Update kategori di database
         $isUpdated = Category::update($id, $name);
 
@@ -134,7 +142,7 @@ class CategoryController {
         exit;
     }
 
-    // Method untuk menghapus kategori
+    // Method untuk menghapus kategori (opsional)
     public function delete() {
         // Pastikan session dimulai
         if (session_status() === PHP_SESSION_NONE) {
@@ -169,3 +177,4 @@ class CategoryController {
         exit;
     }
 }
+?>

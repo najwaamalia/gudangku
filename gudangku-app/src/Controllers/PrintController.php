@@ -150,14 +150,11 @@ class PrintController {
                     font-size: 9pt;
                 }
                 
-                .stock-low {
-                    background: #fee2e2;
-                    color: #dc2626;
-                }
-                
-                .stock-normal {
-                    background: #dcfce7;
-                    color: #16a34a;
+                .stock-low,
+                .stock-medium,
+                .stock-high {
+                    color: #333 !important;
+                    background-color: transparent !important;
                 }
                 
                 .footer {

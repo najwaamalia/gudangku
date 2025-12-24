@@ -28,6 +28,32 @@
         </div>
     </header>
 
+    <!-- ================= NOTIFICATION ================= -->
+
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="success-notification" id="successNotification">
+            <?= htmlspecialchars($_SESSION['success']) ?>
+            <button class="notification-close"
+                    onclick="closeNotification('successNotification')">&times;</button>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-notification" id="errorNotification">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+            <button class="notification-close"
+                    onclick="closeNotification('errorNotification')">&times;</button>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['info'])): ?>
+        <div class="info-notification" id="infoNotification">
+            <?= htmlspecialchars($_SESSION['info']) ?>
+            <button class="notification-close"
+                    onclick="closeNotification('infoNotification')">&times;</button>
+        </div>
+    <?php endif; ?>
+
     <main>
         <div class="dashboard-container">
             <h2>Category Product</h2>
@@ -60,7 +86,7 @@
                 </button>
             </div>
 
-            <!-- Search Form Styling - PERBAIKAN DI SINI -->
+            <!-- Search Form Styling  -->
             <form method="get" class="search-form" action="/">
                 <!-- PENTING: Hidden input untuk route -->
                 <input type="hidden" name="r" value="category">
@@ -151,120 +177,54 @@
         </div>
     </main>
 
-    <!-- Success Notification -->
-    <?php if (isset($_SESSION['success'])): ?>
-        <div class="success-notification" id="successNotification">
-            <?php echo $_SESSION['success']; ?>
-            <button class="notification-close" onclick="closeNotification('successNotification')">&times;</button>
-        </div>
-        <?php unset($_SESSION['success']); ?>
-    <?php endif; ?>
-
-    <!-- Error Notification -->
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="error-notification" id="errorNotification">
-            <?php echo $_SESSION['error']; ?>
-            <button class="notification-close" onclick="closeNotification('errorNotification')">&times;</button>
-        </div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif; ?>
-
-    <!-- Info Notification (untuk hasil search kosong) -->
-    <?php if (isset($_SESSION['info'])): ?>
-        <div class="info-notification" id="infoNotification">
-            <?php echo $_SESSION['info']; ?>
-            <button class="notification-close" onclick="closeNotification('infoNotification')">&times;</button>
-        </div>
-        <?php unset($_SESSION['info']); ?>
-    <?php endif; ?>
+    <?php
+    $hasSuccess = isset($_SESSION['success']);
+    $hasError   = isset($_SESSION['error']);
+    $hasInfo    = isset($_SESSION['info']);
+    ?>
 
     <script>
-        // Function to close notification manually
-        function closeNotification(notificationId) {
-            const notification = document.getElementById(notificationId);
-            if (notification) {
-                notification.classList.remove('show');
-            }
+    $(function () {
+        if (<?= json_encode($hasSuccess) ?>) {
+            $('#successNotification').addClass('show');
+            setTimeout(() => $('#successNotification').removeClass('show'), 4000);
         }
-
-        // Fungsi untuk membuka modal Edit dan mengisi input dengan data kategori yang dipilih
-        function openModal(id, name) {
-            document.getElementById('editCategoryModal').style.display = 'block';
-            document.getElementById('categoryId').value = id;
-            document.getElementById('editCategoryName').value = name;
+        if (<?= json_encode($hasError) ?>) {
+            $('#errorNotification').addClass('show');
+            setTimeout(() => $('#errorNotification').removeClass('show'), 4000);
         }
-
-        // Fungsi untuk menutup modal Edit
-        function closeModal() {
-            document.getElementById('editCategoryModal').style.display = 'none';
+        if (<?= json_encode($hasInfo) ?>) {
+            $('#infoNotification').addClass('show');
+            setTimeout(() => $('#infoNotification').removeClass('show'), 4000);
         }
+    });
 
-        // Fungsi untuk membuka modal Add Category
-        function openAddModal() {
-            document.getElementById('addCategoryModal').style.display = 'block';
-        }
+    function closeNotification(id) {
+        document.getElementById(id)?.classList.remove('show');
+    }
 
-        // Fungsi untuk menutup modal Add Category
-        function closeAddModal() {
-            document.getElementById('addCategoryModal').style.display = 'none';
-        }
+    function openModal(id, name) {
+        document.getElementById('editCategoryModal').style.display = 'block';
+        document.getElementById('categoryId').value = id;
+        document.getElementById('editCategoryName').value = name;
+    }
 
-        // Menutup modal ketika klik di luar modal
-        window.onclick = function(event) {
-            const editModal = document.getElementById('editCategoryModal');
-            const addModal = document.getElementById('addCategoryModal');
-            
-            if (event.target === editModal) {
-                closeModal();
-            }
-            if (event.target === addModal) {
-                closeAddModal();
-            }
-        }
+    function closeModal() {
+        document.getElementById('editCategoryModal').style.display = 'none';
+    }
 
-        // Success, Error, and Info notification handler
-        $(document).ready(function() {
-            // Show success notification
-            <?php if (isset($_SESSION['success'])): ?>
-                const successNotif = $('#successNotification');
-                setTimeout(function() {
-                    successNotif.addClass('show');
-                }, 100);
-                
-                setTimeout(function() {
-                    successNotif.removeClass('show');
-                }, 4100);
-            <?php endif; ?>
+    function openAddModal() {
+        document.getElementById('addCategoryModal').style.display = 'block';
+    }
 
-            // Show error notification
-            <?php if (isset($_SESSION['error'])): ?>
-                const errorNotif = $('#errorNotification');
-                setTimeout(function() {
-                    errorNotif.addClass('show');
-                }, 100);
-                
-                setTimeout(function() {
-                    errorNotif.removeClass('show');
-                }, 4100);
-            <?php endif; ?>
-
-            // Show info notification
-            <?php if (isset($_SESSION['info'])): ?>
-                const infoNotif = $('#infoNotification');
-                setTimeout(function() {
-                    infoNotif.addClass('show');
-                }, 100);
-                
-                setTimeout(function() {
-                    infoNotif.removeClass('show');
-                }, 4100);
-            <?php endif; ?>
-
-            // Focus on search input if search query exists
-            <?php if (isset($_GET['q']) && !empty($_GET['q'])): ?>
-                document.getElementById('searchInput').focus();
-            <?php endif; ?>
-        });
+    function closeAddModal() {
+        document.getElementById('addCategoryModal').style.display = 'none';
+    }
     </script>
+
+
 </body>
 </html>
+<?php
+unset($_SESSION['success'], $_SESSION['error'], $_SESSION['info']);
+?>
