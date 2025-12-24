@@ -1,0 +1,151 @@
+/* ===============================
+   RESET & BASE
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ===============================
+   BACKGROUND (FIGMA)
+================================ */
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #9fd0dc 0%, #5b7f88 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===============================
+   LOGIN CONTAINER
+================================ */
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===============================
+   LOGIN CARD (BOX PUTIH)
+================================ */
+.login-box {
+    width: 420px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* ===============================
+   LOGO & HEADER
+================================ */
+.login-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+}
+
+.login-box h1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.welcome-text {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 28px;
+    line-height: 1.4;
+}
+
+/* ===============================
+   INPUT FORM
+================================ */
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ===============================
+   FORGOT PASSWORD
+================================ */
+.forgot-password {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    margin: 10px 0 22px;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #2563eb;
+}
+
+/* ===============================
+   LOGIN BUTTON
+================================ */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #1e40af;
+}
+
+/* ===============================
+   ERROR NOTIFICATION
+================================ */
+.error-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #dc2626;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.error-notification.show {
+    display: block;
+    opacity: 1;
+}
