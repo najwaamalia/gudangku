@@ -40,7 +40,6 @@ if (isset($_SESSION['error'])) {
                     <input type="password" name="password" id="password" placeholder="Enter your password" required>
                 </div>
 
-                <a href="#" class="forgot-password">Forgot password?</a>
                 <button type="submit" class="login-btn">Login</button>
             </form>
         </div>
