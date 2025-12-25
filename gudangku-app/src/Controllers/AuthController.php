@@ -22,22 +22,37 @@ class AuthController
         try {
             $db = Database::conn();
 
-            $stmt = $db->prepare("SELECT * FROM admin WHERE username = 'admin' LIMIT 1");
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $admins = [
+                ['admin', 'admin'],
+                ['admin1', '123'],
+                ['najwa', 'najwa123'],
+                ['user', 'user123']
+            ];
 
-            if (!$result) {
-                // Buat akun admin default
-                $hashedPassword = password_hash('admin', PASSWORD_DEFAULT);
-                $stmt = $db->prepare("INSERT INTO admin (username, password_hash, created_at)
-                                      VALUES ('admin', ?, NOW())");
-                $stmt->execute([$hashedPassword]);
+            foreach ($admins as [$username, $password]) {
+
+                // Cek apakah username sudah ada
+                $stmt = $db->prepare(
+                    "SELECT id FROM admin WHERE username = ? LIMIT 1"
+                );
+                $stmt->execute([$username]);
+
+                if (!$stmt->fetch()) {
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+                    $insert = $db->prepare(
+                        "INSERT INTO admin (username, password_hash, created_at)
+                        VALUES (?, ?, NOW())"
+                    );
+                    $insert->execute([$username, $hashedPassword]);
+                }
             }
+
         } catch (\PDOException $e) {
-            // Log error atau handle sesuai kebutuhan
             error_log("Database error in ensureAdminExists: " . $e->getMessage());
         }
     }
+
 
     public function showLogin(): void
     {

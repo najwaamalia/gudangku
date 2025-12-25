@@ -30,14 +30,7 @@
 
     <!-- ================= NOTIFICATION ================= -->
 
-    <?php if (isset($_SESSION['success'])): ?>
-        <div class="success-notification" id="successNotification">
-            <?= htmlspecialchars($_SESSION['success']) ?>
-            <button class="notification-close"
-                    onclick="closeNotification('successNotification')">&times;</button>
-        </div>
-    <?php endif; ?>
-
+    
     <?php if (isset($_SESSION['error'])): ?>
         <div class="error-notification" id="errorNotification">
             <?= htmlspecialchars($_SESSION['error']) ?>
@@ -178,17 +171,13 @@
     </main>
 
     <?php
-    $hasSuccess = isset($_SESSION['success']);
+    
     $hasError   = isset($_SESSION['error']);
     $hasInfo    = isset($_SESSION['info']);
     ?>
 
     <script>
     $(function () {
-        if (<?= json_encode($hasSuccess) ?>) {
-            $('#successNotification').addClass('show');
-            setTimeout(() => $('#successNotification').removeClass('show'), 4000);
-        }
         if (<?= json_encode($hasError) ?>) {
             $('#errorNotification').addClass('show');
             setTimeout(() => $('#errorNotification').removeClass('show'), 4000);
@@ -226,5 +215,5 @@
 </body>
 </html>
 <?php
-unset($_SESSION['success'], $_SESSION['error'], $_SESSION['info']);
+unset($_SESSION['error'], $_SESSION['info']);
 ?>

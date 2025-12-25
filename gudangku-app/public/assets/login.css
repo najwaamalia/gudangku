@@ -5,15 +5,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 /* ===============================
-   BACKGROUND (FIGMA)
+   BACKGROUND (THEME MATCH)
 ================================ */
 body {
     min-height: 100vh;
-    background: linear-gradient(180deg, #9fd0dc 0%, #5b7f88 100%);
+    background: linear-gradient(135deg, #6b6fdc, #7b5dc6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,14 +30,14 @@ body {
 }
 
 /* ===============================
-   LOGIN CARD (BOX PUTIH)
+   LOGIN CARD (SOFT CARD)
 ================================ */
 .login-box {
     width: 420px;
     background-color: #ffffff;
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 42px 40px;
+    border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
     text-align: center;
 }
 
@@ -45,67 +45,53 @@ body {
    LOGO & HEADER
 ================================ */
 .login-icon {
-    width: 36px;
-    height: 36px;
-    margin-bottom: 12px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
 }
 
 .login-box h1 {
     font-size: 26px;
-    font-weight: bold;
-    color: #2563eb;
+    font-weight: 700;
+    color: #6d72df;
     margin-bottom: 10px;
 }
 
 .welcome-text {
     font-size: 14px;
     color: #6b7280;
-    margin-bottom: 28px;
-    line-height: 1.4;
+    margin-bottom: 30px;
+    line-height: 1.5;
 }
 
 /* ===============================
    INPUT FORM
 ================================ */
 .input-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
 .input-group label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #111827;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 14px;
     margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
     font-size: 14px;
+    transition: 0.2s;
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #2563eb;
-}
-
-/* ===============================
-   FORGOT PASSWORD
-================================ */
-.forgot-password {
-    display: block;
-    text-align: center;
-    font-size: 13px;
-    color: #6b7280;
-    margin: 10px 0 22px;
-    text-decoration: none;
-}
-
-.forgot-password:hover {
-    color: #2563eb;
+    border-color: #6d72df;
+    box-shadow: 0 0 0 3px rgba(109, 114, 223, 0.15);
 }
 
 /* ===============================
@@ -113,18 +99,19 @@ body {
 ================================ */
 .login-btn {
     width: 100%;
-    padding: 12px;
-    background-color: #2563eb;
+    padding: 13px;
+    background: linear-gradient(135deg, #6d72df, #8b5cf6);
     color: #ffffff;
     font-size: 16px;
     font-weight: 600;
     border: none;
-    border-radius: 10px;
+    border-radius: 14px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .login-btn:hover {
-    background-color: #1e40af;
+    opacity: 0.92;
 }
 
 /* ===============================
@@ -134,14 +121,16 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: #dc2626;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
     color: white;
-    padding: 14px 18px;
-    border-radius: 8px;
+    padding: 14px 20px;
+    border-radius: 16px;
     font-size: 14px;
+    font-weight: 600;
     z-index: 1000;
     display: none;
     opacity: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: opacity 0.4s ease;
 }
 
