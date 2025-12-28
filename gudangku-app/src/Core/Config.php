@@ -7,7 +7,7 @@ class Config
     public const DB_HOST = 'localhost';  // Ganti dari 127.0.0.1 ke localhost
     public const DB_NAME = 'gudangku';
     public const DB_USER = 'root';
-    public const DB_PASS = 'admin';           // Kosongkan password (default XAMPP/WAMP)
+    public const DB_PASS = '';           // Kosongkan password (default XAMPP/WAMP)
     public const DB_PORT = '3306';
     public const DB_CHARSET = 'utf8mb4';
 
