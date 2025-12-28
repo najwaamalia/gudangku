@@ -97,11 +97,10 @@ class AuthController
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['login_time'] = time();
-                
+
                 // Regenerate session ID untuk keamanan
                 session_regenerate_id(true);
 
-                $_SESSION['success'] = 'Welcome back, ' . htmlspecialchars($username) . '!';
                 header('Location: /?r=category');
                 exit;
             }

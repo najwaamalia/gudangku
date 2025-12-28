@@ -21,48 +21,18 @@
                     <i class="fas fa-user-circle"></i>
                     <?php echo htmlspecialchars($_SESSION['username'] ?? 'User'); ?>
                 </span>
-                <a href="/?r=logout" class="logout-btn" onclick="return confirm('Are you sure you want to logout?')">
+                <button class="logout-btn" onclick="openLogoutModal()">
                     <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+                </button>
             <?php endif; ?>
         </div>
     </header>
 
-    <!-- ================= NOTIFICATION ================= -->
-
-    
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="error-notification" id="errorNotification">
-            <?= htmlspecialchars($_SESSION['error']) ?>
-            <button class="notification-close"
-                    onclick="closeNotification('errorNotification')">&times;</button>
-        </div>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['info'])): ?>
-        <div class="info-notification" id="infoNotification">
-            <?= htmlspecialchars($_SESSION['info']) ?>
-            <button class="notification-close"
-                    onclick="closeNotification('infoNotification')">&times;</button>
-        </div>
-    <?php endif; ?>
 
     <main>
         <div class="dashboard-container">
             <h2>Category Product</h2>
 
-            <!-- Search Info -->
-            <?php if (isset($_GET['q']) && !empty($_GET['q'])): ?>
-                <div class="search-info">
-                    <p>
-                        Search results for: <strong>"<?php echo htmlspecialchars($_GET['q']); ?>"</strong>
-                        <a href="/?r=category" class="clear-search">
-                            <i class="fas fa-times"></i> Clear Search
-                        </a>
-                    </p>
-                    <p class="result-count">Found <?php echo count($categories); ?> category(ies)</p>
-                </div>
-            <?php endif; ?>
 
             <!-- Action Buttons -->
             <div class="actions">
@@ -143,6 +113,19 @@
                 </div>
             </div>
 
+            <!-- LOGOUT MODAL -->
+            <div id="logoutModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
+                    <h3><i class="fas fa-sign-out-alt logout-icon"></i> Confirm Logout</h3>
+                    <p class="logout-text">Are you sure you want to logout?</p>
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-btn" onclick="closeLogoutModal()">Batal</button>
+                        <button type="button" class="logout-confirm" id="logoutBtn" onclick="performLogout()">OK</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Category List -->
             <?php if (empty($categories)): ?>
                 <div class="no-results">
@@ -170,50 +153,55 @@
         </div>
     </main>
 
-    <?php
-    
-    $hasError   = isset($_SESSION['error']);
-    $hasInfo    = isset($_SESSION['info']);
-    ?>
 
     <script>
-    $(function () {
-        if (<?= json_encode($hasError) ?>) {
-            $('#errorNotification').addClass('show');
-            setTimeout(() => $('#errorNotification').removeClass('show'), 4000);
-        }
-        if (<?= json_encode($hasInfo) ?>) {
-            $('#infoNotification').addClass('show');
-            setTimeout(() => $('#infoNotification').removeClass('show'), 4000);
-        }
-    });
-
-    function closeNotification(id) {
-        document.getElementById(id)?.classList.remove('show');
-    }
 
     function openModal(id, name) {
-        document.getElementById('editCategoryModal').style.display = 'block';
+        document.getElementById('editCategoryModal').classList.add('show');
         document.getElementById('categoryId').value = id;
         document.getElementById('editCategoryName').value = name;
     }
 
     function closeModal() {
-        document.getElementById('editCategoryModal').style.display = 'none';
+        document.getElementById('editCategoryModal').classList.remove('show');
     }
 
     function openAddModal() {
-        document.getElementById('addCategoryModal').style.display = 'block';
+        document.getElementById('addCategoryModal').classList.add('show');
     }
 
     function closeAddModal() {
-        document.getElementById('addCategoryModal').style.display = 'none';
+        document.getElementById('addCategoryModal').classList.remove('show');
     }
+
+    function openLogoutModal() {
+        document.getElementById('logoutModal').classList.add('show');
+    }
+
+    function closeLogoutModal() {
+        document.getElementById('logoutModal').classList.remove('show');
+    }
+
+    function performLogout() {
+        const btn = document.getElementById('logoutBtn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        setTimeout(() => {
+            window.location.href = '/?r=logout';
+        }, 1000);
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+            closeAddModal();
+            closeLogoutModal();
+        }
+    });
     </script>
 
 
 </body>
 </html>
-<?php
-unset($_SESSION['error'], $_SESSION['info']);
-?>

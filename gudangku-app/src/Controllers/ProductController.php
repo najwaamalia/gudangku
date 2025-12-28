@@ -43,7 +43,7 @@ class ProductController {
 
     // VALIDASI: Cek kode duplikat
     if (Product::existsCode($code)) {
-        $_SESSION['error'] = "Product code already exists!";
+        $_SESSION['error'] = "The code already exists!";
         header("Location: /?r=product&cat=$categoryId");
         exit;
     }
