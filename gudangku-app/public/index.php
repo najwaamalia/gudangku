@@ -70,9 +70,6 @@ switch ($route) {
         (new CategoryController())->update();
         break;
 
-    case 'catDelete':
-        (new CategoryController())->delete();
-        break;
 
     case 'product':
         (new ProductController())->index();
@@ -86,9 +83,6 @@ switch ($route) {
         (new ProductController())->update();
         break;
 
-    case 'prodDelete':
-        (new ProductController())->delete();
-        break;
 
     // TAMBAHKAN CASE PRINT INI
     case 'print':
