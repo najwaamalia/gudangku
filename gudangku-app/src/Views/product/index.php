@@ -1,5 +1,8 @@
 <?php
-// src/Views/product/index.php
+/**
+ * View untuk halaman produk GudangKu
+ * Menampilkan daftar produk dalam kategori tertentu dengan fitur tambah, edit, sorting, dan pencarian
+ */
 if (session_status() === PHP_SESSION_NONE) session_start();
 ?>
 <!DOCTYPE html>

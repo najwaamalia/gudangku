@@ -16,7 +16,7 @@ class Config
     public const APP_VERSION = '1.0.0';
     
     // Session Configuration
-    public const SESSION_LIFETIME = 7200; // 2 hours in seconds
+    public const SESSION_LIFETIME = 7200; // 2 jam dalam detik
     public const SESSION_NAME = 'gudangku_session';
     
     // Timezone

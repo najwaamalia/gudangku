@@ -1,4 +1,9 @@
 <?php
+/**
+ * View untuk halaman login GudangKu
+ * Menampilkan form login dengan validasi dan notifikasi error
+ */
+
 // Jangan session_start() di view, sudah dimulai di index.php
 if (isset($_SESSION['error'])) {
     $error_message = $_SESSION['error'];

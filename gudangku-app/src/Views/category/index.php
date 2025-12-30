@@ -1,3 +1,9 @@
+<?php
+/**
+ * View untuk halaman kategori GudangKu
+ * Menampilkan daftar kategori dengan fitur pencarian, tambah, edit, dan navigasi ke produk
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>

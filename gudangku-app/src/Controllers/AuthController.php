@@ -1,12 +1,16 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\Database;
+
 use App\Models\Admin;
-use PDO;
 
 class AuthController
 {
+    /**
+     * Konstruktor AuthController
+     * Dijalankan setiap kali controller ini dipanggil
+     * Memastikan session aktif, admin default ada di database, dan mengecek timeout session
+     */
     public function __construct()
     {
         // Pastikan session aktif
@@ -38,8 +42,11 @@ class AuthController
         }
     }
 
-    // memastikan akun admin sudah ada di database
-    // jika belum ada, akun akan dibuat otomatis
+    /**
+     * Memastikan akun admin default sudah ada di database
+     * Jika belum ada, akun akan dibuat otomatis dengan password yang sudah di-hash
+     * Fungsi ini dipanggil di konstruktor untuk memastikan ada akun untuk login
+     */
     private function ensureAdminExists()
     {
         try {
@@ -70,7 +77,11 @@ class AuthController
     }
 
 
-    // Menampilkan halaman login
+    /**
+     * Menampilkan halaman login
+     * Jika user sudah login, redirect ke halaman category
+     * Jika belum login, tampilkan form login
+     */
     public function showLogin(): void
     {
         // Jika sudah login, redirect ke category
@@ -83,7 +94,11 @@ class AuthController
         require __DIR__ . '/../Views/auth/login.php';
     }
 
-    // Memproses login dari form
+    /**
+     * Memproses login dari form POST
+     * Validasi input, cek kredensial di database, set session jika berhasil
+     * Redirect ke category jika login berhasil, kembali ke login jika gagal
+     */
     public function login(): void
     {
         // Validasi request method dari form POST
@@ -146,6 +161,10 @@ class AuthController
         }
     }
 
+    /**
+     * Memproses logout user
+     * Hapus semua data session, destroy session, dan redirect ke halaman login dengan pesan goodbye
+     */
     public function logout(): void
     {
         // Simpan username untuk pesan goodbye

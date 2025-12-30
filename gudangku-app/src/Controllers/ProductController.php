@@ -22,12 +22,12 @@ class ProductController {
 
         // Sorting
         if ($sort == 'az') {
-    $products = Product::sortAZ($categoryId);
-} elseif (!empty($search)) {
-    $products = Product::search($search, $categoryId);
-} else {
-    $products = Product::allByCategory($categoryId);
-}
+            $products = Product::sortAZ($categoryId);
+        } elseif (!empty($search)) {
+            $products = Product::search($search, $categoryId);
+        } else {
+            $products = Product::allByCategory($categoryId);
+        }
         $category = Category::findById((int)$categoryId);
 
         require __DIR__ . '/../Views/product/index.php';
