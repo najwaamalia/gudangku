@@ -72,9 +72,7 @@ class CategoryController {
         $isCreated = Category::create($name);
 
         // Cek jika data berhasil disimpan
-        if ($isCreated) {
-            $_SESSION['success'] = "Category added successfully!";
-        } else {
+        if (!$isCreated) {
             $_SESSION['error'] = "Failed to add category!";
         }
         
@@ -131,9 +129,7 @@ class CategoryController {
         $isUpdated = Category::update($id, $name);
 
         // Cek hasil update
-        if ($isUpdated) {
-            $_SESSION['success'] = "Category updated successfully!";
-        } else {
+        if (!$isUpdated) {
             $_SESSION['error'] = "Failed to update category!";
         }
 

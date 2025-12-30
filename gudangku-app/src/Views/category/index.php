@@ -28,6 +28,15 @@
         </div>
     </header>
 
+    <!-- ================= NOTIFICATION ================= -->
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-notification" id="errorNotification">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+            <button class="notification-close"
+                    onclick="closeNotification('errorNotification')">&times;</button>
+        </div>
+    <?php endif ?>
 
     <main>
         <div class="dashboard-container">
@@ -155,6 +164,16 @@
 
 
     <script>
+    $(function () {
+        if (<?= json_encode(isset($_SESSION['error'])) ?>) {
+            $('#errorNotification').addClass('show');
+            setTimeout(() => $('#errorNotification').removeClass('show'), 4000);
+        }
+    });
+
+    function closeNotification(id) {
+        document.getElementById(id)?.classList.remove('show');
+    }
 
     function openModal(id, name) {
         document.getElementById('editCategoryModal').classList.add('show');
@@ -205,3 +224,6 @@
 
 </body>
 </html>
+<?php
+unset($_SESSION['error']);
+?>
