@@ -6,6 +6,7 @@ use App\Models\Category;
 
 class ProductController {
 
+    // Menampilkan daftar produk berdasarkan kategori dengan opsi sorting dan pencarian
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -32,9 +33,11 @@ class ProductController {
         require __DIR__ . '/../Views/product/index.php';
     }
 
+    // Menyimpan produk baru ke database
     public function save() {
     if (session_status() === PHP_SESSION_NONE) session_start();
 
+    //Ambil data dari form
     $categoryId = $_POST['categoryId'];
     $name       = $_POST['name'];
     $code       = $_POST['code'];
@@ -47,23 +50,26 @@ class ProductController {
         header("Location: /?r=product&cat=$categoryId");
         exit;
     }
-
+    // Simpan produk
     $ok = Product::create($name, $categoryId, $code, $stock, $desc, '');
 
+    // Set pesan sesuai hasil penyimpanan
     if ($ok) {
         $_SESSION['success'] = "Product added successfully!";
     } else {
         $_SESSION['error'] = "Failed to add product!";
     }
 
+    // Redirect kembali ke halaman produk
     header("Location: /?r=product&cat=$categoryId");
     exit;
 }
 
-
+    // Memperbarui data produk yang sudah ada
     public function update() {
     if (session_status() === PHP_SESSION_NONE) session_start();
 
+    // Ambil data dari form
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header("Location: /?r=category");
         exit;
@@ -83,14 +89,17 @@ class ProductController {
         exit;
     }
 
+    // Update produk ke database
     $ok = Product::update($id, $name, $code, $stock, $desc);
 
+    // Set pesan sesuai hasil update
     if ($ok) {
         $_SESSION['success'] = "Product updated successfully!";
     } else {
         $_SESSION['error'] = "Failed to update product!";
     }
 
+    // Redirect kembali ke halaman produk
     header("Location: /?r=product&cat=$categoryId");
     exit;
 }

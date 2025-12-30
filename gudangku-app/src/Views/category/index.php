@@ -127,7 +127,7 @@
                 <div class="modal-content">
                     <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
                     <h3><i class="fas fa-sign-out-alt logout-icon"></i> Confirm Logout</h3>
-                    <p class="logout-text">Are you sure you want to logout?</p>
+                    <p class="logout-text">Are you sure want to logout?</p>
                     <div class="modal-buttons">
                         <button type="button" class="cancel-btn" onclick="closeLogoutModal()">Batal</button>
                         <button type="button" class="logout-confirm" id="logoutBtn" onclick="performLogout()">OK</button>

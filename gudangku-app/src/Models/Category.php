@@ -5,12 +5,14 @@ use PDO;
 
 class Category {
 
-    // Method untuk mengambil semua kategori
+    // Method untuk mengambil semua kategori dari database
     public static function all(): array {
         return Database::conn()->query("SELECT * FROM category ORDER BY name_category")->fetchAll();
     }
 
-    // Method untuk mencari kategori berdasarkan ID
+    // Method untuk mencari kategori berdasarkan ID 
+    // Menampilkan nama kategori di halaman produk
+    //dipakai untuk edit kategori
     public static function findById(int $id): ?array {
         $stmt = Database::conn()->prepare("SELECT * FROM category WHERE id = ?");
         $stmt->execute([$id]);
@@ -19,6 +21,7 @@ class Category {
     }
 
     // Method untuk mencari kategori berdasarkan nama (SEARCH)
+    //Mencari kategori berdasarkan nama kategori.
     public static function search(string $searchQuery): array {
         // Jika tidak ada pencarian, tampilkan semua kategori
         if (empty($searchQuery)) {
@@ -38,6 +41,7 @@ class Category {
         $stmt = Database::conn()->prepare("INSERT INTO category(name_category) VALUES(?)");
         return $stmt->execute([$name]);
     }
+    
 
     // Method untuk mengupdate kategori
     public static function update(int $id, string $name): bool {
@@ -53,6 +57,8 @@ class Category {
         return $stmt->fetchColumn() > 0;
     }
 
+    //Mengambil data kategori berdasarkan nama kategori.
+    // validasi lanjutan setelah eksisByName
     public static function findByName(string $name): ?array {
     $stmt = Database::conn()->prepare("SELECT * FROM category WHERE LOWER(name_category) = LOWER(?)");
     $stmt->execute([$name]);
