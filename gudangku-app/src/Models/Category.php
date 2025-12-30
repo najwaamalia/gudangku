@@ -45,11 +45,6 @@ class Category {
         return $stmt->execute([$name, $id]);
     }
 
-    // Method untuk menghapus kategori
-    public static function delete(int $id): bool {
-        $stmt = Database::conn()->prepare("DELETE FROM category WHERE id = ?");
-        return $stmt->execute([$id]);
-    }
 
     // Method untuk memeriksa apakah kategori sudah ada berdasarkan nama
     public static function existsByName(string $name): bool {

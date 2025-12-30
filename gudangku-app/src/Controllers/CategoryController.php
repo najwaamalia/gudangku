@@ -110,12 +110,6 @@ class CategoryController {
             exit;
         }
 
-        // Validasi panjang maksimal
-        if (strlen($name) > 100) {
-            $_SESSION['error'] = "Category name is too long! Maximum 100 characters.";
-            header('Location: /?r=category');
-            exit;
-        }
 
         // PERBAIKAN: Cek apakah nama kategori sudah digunakan oleh kategori lain
         $existingCategory = Category::findByName($name);

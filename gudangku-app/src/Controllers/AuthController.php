@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Database;
+use App\Models\Admin;
 use PDO;
 
 class AuthController
@@ -20,31 +21,18 @@ class AuthController
     private function ensureAdminExists()
     {
         try {
-            $db = Database::conn();
-
             $admins = [
                 ['admin', 'admin'],
                 ['admin1', '123'],
                 ['najwa', 'najwa123'],
-                ['user', 'user123']
+                ['user', 'user123'],
+                ['user@gmail.com', 'ahay']
             ];
 
             foreach ($admins as [$username, $password]) {
-
-                // Cek apakah username sudah ada
-                $stmt = $db->prepare(
-                    "SELECT id FROM admin WHERE username = ? LIMIT 1"
-                );
-                $stmt->execute([$username]);
-
-                if (!$stmt->fetch()) {
+                if (!Admin::exists($username)) {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-                    $insert = $db->prepare(
-                        "INSERT INTO admin (username, password_hash, created_at)
-                        VALUES (?, ?, NOW())"
-                    );
-                    $insert->execute([$username, $hashedPassword]);
+                    Admin::create($username, $hashedPassword);
                 }
             }
 
@@ -84,30 +72,30 @@ class AuthController
         }
 
         try {
-            // Reconnect database untuk menghindari "server gone away"
-            $db = Database::conn();
-            
-            $stmt = $db->prepare("SELECT * FROM admin WHERE username = ? LIMIT 1");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user = Admin::findByUsername($username);
 
-            if ($user && password_verify($password, $user['password_hash'])) {
-                // Login berhasil
-                $_SESSION['auth'] = true;
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['login_time'] = time();
-
-                // Regenerate session ID untuk keamanan
-                session_regenerate_id(true);
-
-                header('Location: /?r=category');
+            if (!$user) {
+                $_SESSION['error'] = 'Username not found in database!';
+                header('Location: /?r=login');
                 exit;
             }
 
-            // Login gagal
-            $_SESSION['error'] = 'Incorrect username or password!';
-            header('Location: /?r=login');
+            if (!password_verify($password, $user['password_hash'])) {
+                $_SESSION['error'] = 'Incorrect password!';
+                header('Location: /?r=login');
+                exit;
+            }
+
+            // Login berhasil
+            $_SESSION['auth'] = true;
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['login_time'] = time();
+
+            // Regenerate session ID untuk keamanan
+            session_regenerate_id(true);
+
+            header('Location: /?r=category');
             exit;
 
         } catch (\PDOException $e) {

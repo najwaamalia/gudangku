@@ -6,7 +6,8 @@ use PDO;
 
 class Product {
 
-    // Ambil semua produk sesuai kategori TANPA SORT
+    // Mengambil semua produk berdasarkan kategori tertentu tanpa melakukan sorting khusus
+    // digunakan saat ingin menampilkan produk sesuai kategori secara default
     public static function allByCategory(int $categoryId): array {
     $stmt = Database::conn()->prepare("
         SELECT * FROM product 
@@ -20,6 +21,7 @@ class Product {
 
 
     // Sorting A-Z
+    // Digunakan saat user memilih opsi sorting alfabet
     public static function sortAZ(int $categoryId): array {
         $stmt = Database::conn()->prepare("
             SELECT * FROM product 
@@ -30,7 +32,7 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Pencarian produk
+    // Melakukan pencarian produk berdasarkan nama dalam satu kategori tertentu.
     public static function search(string $keyword, int $categoryId): array {
         $stmt = Database::conn()->prepare("
             SELECT * FROM product
@@ -40,7 +42,8 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Cek apakah kode produk sudah ada
+    // Cek apakah kode produk sudah ada di database
+    // dipakai saat validasi input tambah produk
 public static function existsCode(string $code): bool {
     $stmt = Database::conn()->prepare("
         SELECT COUNT(*) FROM product WHERE code = ?
@@ -49,7 +52,8 @@ public static function existsCode(string $code): bool {
     return $stmt->fetchColumn() > 0;
 }
 
-// Cek kode produk saat edit (abaikan ID sendiri)
+// Mengecek apakah kode produk sudah dipakai produk lain.
+// Digunakan saat edit produk
 public static function existsCodeExcept(string $code, int $excludeId): bool {
     $stmt = Database::conn()->prepare("
         SELECT COUNT(*) FROM product 
@@ -98,14 +102,17 @@ public static function existsCodeExcept(string $code, int $excludeId): bool {
         ]);
     }
 
-    // Ambil produk by id
+    // Mengambil satu data produk berdasarkan ID.
+    // dipakai sebelum proses edit
     public static function findById(int $id): array|null {
         $stmt = Database::conn()->prepare("SELECT * FROM product WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+
     // Cari produk berdasarkan nama (global, bukan per kategori)
+    // nge search di database produk seluruhnya
 public static function searchGlobal(string $keyword): array {
     $stmt = Database::conn()->prepare("
         SELECT * FROM product 
@@ -116,21 +123,9 @@ public static function searchGlobal(string $keyword): array {
 }
 
     
-    public static function getByCategoryId($categoryId) {
-        $pdo = \App\Core\Database::conn();
-        
-        $stmt = $pdo->prepare("
-            SELECT id, product_name, code, stock, description, category_id 
-            FROM product 
-            WHERE category_id = ? 
-            ORDER BY product_name ASC
-        ");
-        
-        $stmt->execute([$categoryId]);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
 
     // Method untuk mendapatkan semua produk dari semua kategori
+    // untuk print all products
     public static function all() {
         $pdo = \App\Core\Database::conn();
         
