@@ -104,14 +104,14 @@ class AuthController
 
             //jika user tidak ditemukan
             if (!$user) {
-                $_SESSION['error'] = 'Username not found in database!';
+                $_SESSION['error'] = 'Invalid username or password!';
                 header('Location: /?r=login');
                 exit;
             }
 
             // Verifikasi password
             if (!password_verify($password, $user['password_hash'])) {
-                $_SESSION['error'] = 'Incorrect password!';
+                $_SESSION['error'] = 'Invalid username or password!';
                 header('Location: /?r=login');
                 exit;
             }
