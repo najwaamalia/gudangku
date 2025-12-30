@@ -9,7 +9,7 @@ class AuthController
     /**
      * Konstruktor AuthController
      * Dijalankan setiap kali controller ini dipanggil
-     * Memastikan session aktif, admin default ada di database, dan mengecek timeout session
+     * Memastikan session aktif dan admin default ada di database
      */
     public function __construct()
     {
@@ -20,26 +20,6 @@ class AuthController
 
         // Pastikan akun admin ada di database
         $this->ensureAdminExists();
-
-        // Cek session timeout berdasarkan waktu idle (15 menit = 900 detik)
-        if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
-            if (isset($_SESSION['last_activity'])) {
-                // Hitung waktu tidak aktif
-                $inactive_time = time() - $_SESSION['last_activity'];
-
-                // Jika lebih dari 15 menit tidak aktif
-                if ($inactive_time > 900) {
-                    // Lakukan logout otomatis karena timeout
-                    $_SESSION = [];
-                    session_destroy();
-                    session_start();
-                    $_SESSION['error'] = 'Your session has expired due to inactivity. Please login again.';
-                }
-            }
-
-            // Update waktu aktivitas terakhir
-            $_SESSION['last_activity'] = time();
-        }
     }
 
     /**
@@ -143,7 +123,6 @@ class AuthController
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['login_time'] = time();
-            $_SESSION['last_activity'] = time(); // Set waktu aktivitas terakhir saat login
 
             // Regenerate session ID untuk keamanan
             session_regenerate_id(true);
