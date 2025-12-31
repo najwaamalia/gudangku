@@ -37,16 +37,8 @@ class Database
                 self::$pdo->setAttribute(PDO::ATTR_TIMEOUT, 30);
 
             } catch (PDOException $e) {
-                // Error handling yang lebih informatif
-                $errorMsg = "<h3>Database Connection Failed</h3>";
-                $errorMsg .= "<p><strong>Host:</strong> " . Config::DB_HOST . "</p>";
-                $errorMsg .= "<p><strong>Database:</strong> " . Config::DB_NAME . "</p>";
-                $errorMsg .= "<p><strong>User:</strong> " . Config::DB_USER . "</p>";
-                $errorMsg .= "<p><strong>Error:</strong> " . $e->getMessage() . "</p>";
-                $errorMsg .= "<p>Please check your database configuration in <code>App/Core/Config.php</code></p>";
-                
                 error_log("Database Connection Error: " . $e->getMessage());
-                die($errorMsg);
+                throw $e;
             }
         }
 
